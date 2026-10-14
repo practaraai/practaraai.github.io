@@ -43,7 +43,7 @@ details{background:#fff;border:1px solid var(--line);border-radius:10px;padding:
 .prose{max-width:760px}
 .notice{background:#fff7e6;border-left:4px solid #b26b00;padding:10px 14px;border-radius:6px}
 form label{display:block;font-weight:600;margin:12px 0 4px}
-input,textarea{width:100%;font:inherit;padding:11px 12px;border:1px solid #8a8fa0;border-radius:8px;min-height:44px}
+input,textarea,select{background:#fff;width:100%;font:inherit;padding:11px 12px;border:1px solid #8a8fa0;border-radius:8px;min-height:44px}
 form .btn{margin-top:16px;width:100%}
 .site-footer{background:var(--ink);color:#e9ebf0;padding:32px 0;font-size:.95rem}.site-footer a{color:#fff}
 .foot p{margin:0 0 10px}.site-footer .small{color:#b9bdc7}
