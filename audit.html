@@ -46,6 +46,8 @@
 <label for="email">Work email</label><input id="email" name="email" type="email" autocomplete="email" maxlength="500" required>
 <label for="phone">Phone (optional)</label><input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="500">
 <label for="site">Website URL</label><input id="site" name="website" type="url" inputmode="url" placeholder="https://" maxlength="500" required>
+<label for="city">Practice city</label><input id="city" name="city" autocomplete="address-level2" maxlength="100" required>
+<label for="state">Practice state</label><select id="state" name="state" required><option value="">Choose a state</option><option value="AL">Alabama</option><option value="AK">Alaska</option><option value="AZ">Arizona</option><option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option><option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="DC">District of Columbia</option><option value="FL">Florida</option><option value="GA">Georgia</option><option value="HI">Hawaii</option><option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option><option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option><option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option><option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option><option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="OH">Ohio</option><option value="OK">Oklahoma</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option><option value="PR">Puerto Rico</option><option value="RI">Rhode Island</option><option value="SC">South Carolina</option><option value="SD">South Dakota</option><option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option><option value="VT">Vermont</option><option value="VA">Virginia</option><option value="WA">Washington</option><option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option></select>
 <label for="type">Practice type</label><select id="type" name="type"><option value="">Choose one</option><option>Ambulatory surgery center</option><option>Physician practice</option><option>Multi-specialty group</option><option>Other</option></select>
 <label for="msg">Message (optional)</label><textarea id="msg" name="message" rows="3" maxlength="500" aria-describedby="msg-help"></textarea>
 <p id="msg-help" class="small">Please do not include patient information.</p>
@@ -63,14 +65,14 @@ var f=document.getElementById("audit-form"), q=new URLSearchParams(location.sear
 if(q.get("url"))f.website.value=q.get("url").slice(0,500);
 if(q.get("ref"))f.ref.value=q.get("ref").slice(0,500);
 function mailto(){
- var b="";["practice","contact","email","phone","website","type","message","ref"].forEach(function(k){if(f[k].value)b+=k+": "+f[k].value+"\n";});
+ var b="";["practice","contact","email","phone","website","city","state","type","message","ref"].forEach(function(k){if(f[k].value)b+=k+": "+f[k].value+"\n";});
  location.href="mailto:"+EMAIL+"?subject="+encodeURIComponent("Free website audit request")+"&body="+encodeURIComponent(b);
 }
 function thanks(){f.hidden=true;document.getElementById("form-thanks").hidden=false;}
 f.addEventListener("submit",function(e){
  e.preventDefault();
  var err=document.getElementById("form-error");
- if(!f.checkValidity()){err.textContent="Please fill in the required fields, including a valid email and website URL.";err.hidden=false;f.reportValidity();return;}
+ if(!f.checkValidity()){err.textContent="Please fill in the required fields, including a valid email, website URL, city and state.";err.hidden=false;f.reportValidity();return;}
  err.hidden=true;
  if(f.company_website.value){thanks();return;}
  if(!ENDPOINT){mailto();thanks();return;}
