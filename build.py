@@ -3,7 +3,7 @@ import json, os
 D="https://practaraai.com"
 EMAIL="practara.ai@gmail.com"
 # Google Apps Script web app URL (ends in /exec). Empty = form falls back to email.
-FORM_ENDPOINT=""
+FORM_ENDPOINT="https://script.google.com/macros/s/AKfycbxzxMA3-YnMZhaUKQlSQ1Lk0fJ36vg5iE4_Bus3qKmFrnw_7hUzoMamjA8SMRGyDSKtiw/exec"
 NAV=[("index.html","Home"),("services.html","Services"),("pricing.html","Pricing"),("about.html","About"),("audit.html","Free audit")]
 LD={"@context":"https://schema.org","@type":["Organization","ProfessionalService"],"name":"Practara AI","url":D+"/","logo":D+"/favicon.svg","description":"Website rebuilds plus AI search and SEO visibility, brand, and analytics for ambulatory surgery centers and physician practices.","founder":{"@type":"Person","name":"Brady Rodriguez"},"areaServed":{"@type":"Country","name":"United States"},"email":EMAIL,"knowsAbout":["Medical practice websites","Ambulatory surgery center marketing","AI search visibility","Healthcare SEO","HIPAA-safe web analytics"]}
 def page(fn,title,desc,body,extra=""):
