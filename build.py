@@ -3,7 +3,7 @@ import json, os
 D="https://practaraai.com"
 EMAIL="hello@practaraai.com"  # PLACEHOLDER
 NAV=[("index.html","Home"),("services.html","Services"),("pricing.html","Pricing"),("about.html","About"),("audit.html","Free audit")]
-LD={"@context":"https://schema.org","@type":["Organization","ProfessionalService"],"name":"Practara AI","alternateName":"ClearChart Health","url":D+"/","logo":D+"/favicon.svg","description":"Website rebuilds plus AI search and SEO visibility, brand, and analytics for ambulatory surgery centers and physician practices.","founder":{"@type":"Person","name":"Brady Rodriguez"},"areaServed":{"@type":"Country","name":"United States"},"email":EMAIL,"knowsAbout":["Medical practice websites","Ambulatory surgery center marketing","AI search visibility","Healthcare SEO","HIPAA-safe web analytics"]}
+LD={"@context":"https://schema.org","@type":["Organization","ProfessionalService"],"name":"Practara AI","url":D+"/","logo":D+"/favicon.svg","description":"Website rebuilds plus AI search and SEO visibility, brand, and analytics for ambulatory surgery centers and physician practices.","founder":{"@type":"Person","name":"Brady Rodriguez"},"areaServed":{"@type":"Country","name":"United States"},"email":EMAIL,"knowsAbout":["Medical practice websites","Ambulatory surgery center marketing","AI search visibility","Healthcare SEO","HIPAA-safe web analytics"]}
 def page(fn,title,desc,body,extra=""):
     nav="".join(f'<a href="{h}"{" aria-current=\"page\"" if h==fn else ""}{" class=\"btn btn-sm\"" if h=="audit.html" else ""}>{t}</a>' for h,t in NAV)
     can=D+"/"+("" if fn=="index.html" else fn)
@@ -22,6 +22,8 @@ def page(fn,title,desc,body,extra=""):
 <meta property="og:url" content="{can}">
 <meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#3B3F99">
+<!-- PLACEHOLDER: domain practaraai.com and hello@practaraai.com are unconfirmed (not yet registered/owned). Brady must sign off before launch. -->
+<!-- INTERIM: logo.svg and favicon.svg are interim, built from the brand spec until designer files arrive. -->
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="styles.css">
 {extra}</head>
@@ -37,7 +39,7 @@ def page(fn,title,desc,body,extra=""):
 <footer class="site-footer"><div class="wrap foot">
 <p><strong>Practara AI</strong> | Help patients and AI understand your practice.<br>Websites and AI search visibility for ambulatory surgery centers and physician practices. Serving clients across the United States.</p>
 <p><a href="services.html">Services</a> · <a href="pricing.html">Pricing</a> · <a href="about.html">About</a> · <a href="audit.html">Free audit</a> · <a href="privacy.html">Privacy</a></p>
-<p class="small">&copy; 2026 Practara AI. Formerly ClearChart Health.</p>
+<p class="small">&copy; 2026 Practara AI.</p>
 </div></footer>
 </body>
 </html>
@@ -57,7 +59,7 @@ f'''<section class="hero"><div class="wrap">
 <p class="small">We only review your public website. Please do not include patient information.</p>
 </div></section>
 <section class="wrap section"><h2>Patients judge your care by your website before they meet you</h2>
-<p class="intro">When a website looks dated, patients and referring physicians may assume the care is dated too. That is rarely true, but they cannot see your operating rooms, your equipment, or your physicians' training. They see your homepage.</p>
+<p class="intro">When a website looks dated, patients and referring physicians may assume the care is dated too. Your care may be far more current than your site shows. Patients cannot see your operating rooms, your equipment, or your physicians' training. They see your homepage.</p>
 <div class="grid3">
 <article class="card"><h3>Patients may choose another practice</h3><p>If your site is slow on a phone or unclear, a patient can tap back and pick the next result. AI assistants have little to go on when your pages are thin or unclear.</p></article>
 <article class="card"><h3>The wrong patient mix</h3><p>Without clear insurance information, self-pay details where you choose to publish them, and pages for the procedures you focus on, the patients you serve best have a harder time finding you.</p></article>
