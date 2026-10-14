@@ -25,7 +25,7 @@ function render(r){
  var sc=document.getElementById("scorecard");sc.focus({preventScroll:true});sc.scrollIntoView({behavior:"smooth",block:"start"});
 }
 function leadForm(r){
- return '<div class="card lead-card" id="lead"><h2>Get your free deeper analysis and a 15-minute call</h2>'+
+ return '<div class="card lead-card" id="lead"><h2>Get your free deeper analysis and a 30-minute call</h2>'+
  '<p>We will review your full site, AI answers, and local competitors, then walk you through the results on a short call. No cost, no pressure.</p>'+
  '<p class="notice" role="note"><strong>Please do not include patient information.</strong></p>'+
  '<form id="lead-form" novalidate>'+
@@ -39,7 +39,7 @@ function leadForm(r){
  '<input type="hidden" name="website" value="'+esc(r.url)+'"><input type="hidden" name="score" value="'+r.score+'"><input type="hidden" name="grade" value="'+esc(r.grade)+'"><input type="hidden" name="source" value="scorecard">'+
  '<input type="hidden" name="type" value=""><input type="hidden" name="message" value="Instant scorecard lead"><input type="hidden" name="ref" value="'+esc(new URLSearchParams(location.search).get("ref")||location.pathname)+'">'+
  '<button class="btn" type="submit">Book my free deeper analysis</button><p id="lead-error" class="small" role="alert" hidden></p></form>'+
- '<div id="lead-thanks" role="status" hidden><h3>You are booked in.</h3><p>Thank you. We will email you within 2 business days to confirm a call time and share your deeper analysis.</p></div>'+
+ '<div id="lead-thanks" role="status" hidden><h3>Request received.</h3><p>Thank you. Grab a 30-minute call time now, and we will share your deeper analysis on the call.</p><p><a class="btn" href="https://calendly.com/practara-ai/30min" target="_blank" rel="noopener">Pick a time on my calendar</a></p></div>'+
  '<p class="small">Prefer email? Write to <a href="mailto:'+CFG.email+'">'+CFG.email+'</a>.</p></div>';
 }
 function wireLead(){
