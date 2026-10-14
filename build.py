@@ -1,6 +1,6 @@
 # Generator for the Practara AI static site. Run: python3 build.py
 import json, os
-D="https://practaraai.com"
+D="https://practaraai.github.io"
 EMAIL="practara.ai@gmail.com"
 # Google Apps Script web app URL (ends in /exec). Empty = form falls back to email.
 FORM_ENDPOINT="https://script.google.com/macros/s/AKfycbyors1TR2mlBP-3cODe-wrb-KfAj4UwGcuQu2Fs3e7EpnobTQHd3bq_HpzmT4oYQN9-/exec"
@@ -121,7 +121,7 @@ f'''<section class="hero hero-sm"><div class="wrap"><h1>About Practara AI</h1><p
 <p>Most practices do not know what they do not know about marketing: who their right patient is, where those patients go instead, and why they pick a competitor. We find the gap between how good the practice really is and what its website and AI answers say, then close it.</p>
 <h2>Our founder</h2><p>Practara AI was founded on the West Coast after 5 years in the medical field. We work with ambulatory surgery centers and physician practices across the United States.</p>
 <h2>How we work</h2><ul class="checks"><li>No claims we cannot substantiate, and no guarantees of results</li><li>"Board certified" always names the board</li><li>Patient stories only with written patient authorization</li><li>Your practice approves every page before it publishes</li></ul>
-<p class="small">Practara AI was formerly known as ClearChart Health.</p>
+
 </section>
 {cta}''')
 
