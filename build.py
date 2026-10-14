@@ -5,7 +5,7 @@ EMAIL="practara.ai@gmail.com"
 # Google Apps Script web app URL (ends in /exec). Empty = form falls back to email.
 FORM_ENDPOINT="https://script.google.com/macros/s/AKfycbwif62DzaA43EAkNZj7xxzx6zh8vbRvYJjdaowolpefyhyYHj8AFfcZz5ZK1yN7qokyPg/exec"
 NAV=[("index.html","Home"),("services.html","Services"),("pricing.html","Pricing"),("about.html","About"),("audit.html","Free audit")]
-LD={"@context":"https://schema.org","@type":["Organization","ProfessionalService"],"name":"Practara AI","url":D+"/","logo":D+"/favicon.svg","description":"Website rebuilds plus AI search and SEO visibility, brand, and analytics for ambulatory surgery centers and physician practices.","founder":{"@type":"Person","name":"Brady Rodriguez"},"areaServed":{"@type":"Country","name":"United States"},"email":EMAIL,"knowsAbout":["Medical practice websites","Ambulatory surgery center marketing","AI search visibility","Healthcare SEO","HIPAA-safe web analytics"]}
+LD={"@context":"https://schema.org","@type":["Organization","ProfessionalService"],"name":"Practara AI","url":D+"/","logo":D+"/favicon.svg","description":"Website rebuilds plus AI search and SEO visibility, brand, and analytics for ambulatory surgery centers and physician practices.","areaServed":{"@type":"Country","name":"United States"},"email":EMAIL,"knowsAbout":["Medical practice websites","Ambulatory surgery center marketing","AI search visibility","Healthcare SEO","HIPAA-safe web analytics"]}
 def page(fn,title,desc,body,extra=""):
     nav="".join(f'<a href="{h}"{" aria-current=\"page\"" if h==fn else ""}{" class=\"btn btn-sm\"" if h=="audit.html" else ""}>{t}</a>' for h,t in NAV)
     can=D+"/"+("" if fn=="index.html" else fn)
@@ -24,7 +24,7 @@ def page(fn,title,desc,body,extra=""):
 <meta property="og:url" content="{can}">
 <meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#3B3F99">
-<!-- PLACEHOLDER: domain practaraai.com is unconfirmed (not yet registered or owned). Brady must sign off before launch. -->
+<!-- PLACEHOLDER: domain practaraai.com is unconfirmed (not yet registered or owned). -->
 <!-- INTERIM: logo.svg and favicon.svg are interim, built from the brand spec until designer files arrive. -->
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="styles.css">
@@ -68,7 +68,7 @@ f'''<section class="hero"><div class="wrap">
 <article class="card"><h3>An outdated site</h3><p>Procedures are hard to find, technology goes unmentioned, and board certifications, fellowships, and specialties are missing or out of date.</p></article>
 </div></section>
 <section class="band"><div class="wrap section split">
-<div><h2>Built by someone who has worked in medicine</h2><p>Practara AI's founder, Brady Rodriguez, has 5 years of experience in the medical field. That is why we start with your procedures, your physicians, and your patients, and then build the website around them. Insiders who understand providers, not a generic tech company.</p><a href="about.html">More about us</a></div>
+<div><h2>Built by someone who has worked in medicine</h2><p>Practara AI's founder has 5 years of experience in the medical field. That is why we start with your procedures, your physicians, and your patients, and then build the website around them. Insiders who understand providers, not a generic tech company.</p><a href="about.html">More about us</a></div>
 <ul class="checks"><li>No patient health information in standard web forms or analytics</li><li>No ad pixels or session replay on clinical pages</li><li>Content your clinical team reviews and approves before anything goes live</li><li>Accessibility designed to target WCAG 2.2 AA</li><li>No guarantees of rankings, AI answers, or patient volume. We fix what makes your site harder to understand and report on what changes.</li></ul>
 </div></section>
 <section class="wrap section"><h2>How it works</h2>
@@ -110,12 +110,12 @@ f'''<section class="hero hero-sm"><div class="wrap"><h1>One plan. Simple, upfron
 </div></section>
 {cta}''')
 
-page("about.html","About | Practara AI","Practara AI was founded by Brady Rodriguez after 5 years in the medical field. We help surgery centers and practices show patients what they actually do.",
+page("about.html","About | Practara AI","Practara AI was founded on the West Coast after 5 years in the medical field. We help surgery centers and practices show patients what they actually do.",
 f'''<section class="hero hero-sm"><div class="wrap"><h1>About Practara AI</h1><p class="lead">Built by someone who has worked inside healthcare.</p></div></section>
 <section class="wrap section prose">
 <h2>Why we exist</h2><p>Many physicians are excellent. They use advanced technology, modern procedures, and refined techniques, and they have serious training. Their websites show almost none of it. Patients cannot see what makes the practice good, so they book somewhere that looks more current.</p>
 <p>Most practices do not know what they do not know about marketing: who their right patient is, where those patients go instead, and why they pick a competitor. We find the gap between how good the practice really is and what its website and AI answers say, then close it.</p>
-<h2>Our founder</h2><p>Brady Rodriguez founded Practara AI after 5 years in the medical field. Practara AI is based in Los Angeles and works with ambulatory surgery centers and physician practices across the United States.</p>
+<h2>Our founder</h2><p>Practara AI was founded on the West Coast after 5 years in the medical field. We work with ambulatory surgery centers and physician practices across the United States.</p>
 <h2>How we work</h2><ul class="checks"><li>No claims we cannot substantiate, and no guarantees of results</li><li>"Board certified" always names the board</li><li>Patient stories only with written patient authorization</li><li>Your practice approves every page before it publishes</li></ul>
 <p class="small">Practara AI was formerly known as ClearChart Health.</p>
 </section>
