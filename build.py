@@ -1,7 +1,7 @@
 # Generator for the Practara AI static site. Run: python3 build.py
 import json, os
 D="https://practaraai.com"
-EMAIL="hello@practaraai.com"  # PLACEHOLDER
+EMAIL="practara.ai@gmail.com"
 NAV=[("index.html","Home"),("services.html","Services"),("pricing.html","Pricing"),("about.html","About"),("audit.html","Free audit")]
 LD={"@context":"https://schema.org","@type":["Organization","ProfessionalService"],"name":"Practara AI","url":D+"/","logo":D+"/favicon.svg","description":"Website rebuilds plus AI search and SEO visibility, brand, and analytics for ambulatory surgery centers and physician practices.","founder":{"@type":"Person","name":"Brady Rodriguez"},"areaServed":{"@type":"Country","name":"United States"},"email":EMAIL,"knowsAbout":["Medical practice websites","Ambulatory surgery center marketing","AI search visibility","Healthcare SEO","HIPAA-safe web analytics"]}
 def page(fn,title,desc,body,extra=""):
@@ -22,7 +22,7 @@ def page(fn,title,desc,body,extra=""):
 <meta property="og:url" content="{can}">
 <meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#3B3F99">
-<!-- PLACEHOLDER: domain practaraai.com and hello@practaraai.com are unconfirmed (not yet registered/owned). Brady must sign off before launch. -->
+<!-- PLACEHOLDER: domain practaraai.com is unconfirmed (not yet registered or owned). Brady must sign off before launch. -->
 <!-- INTERIM: logo.svg and favicon.svg are interim, built from the brand spec until designer files arrive. -->
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="styles.css">
