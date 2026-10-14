@@ -2,6 +2,8 @@
 import json, os
 D="https://practaraai.com"
 EMAIL="practara.ai@gmail.com"
+# Google Apps Script web app URL (ends in /exec). Empty = form falls back to email.
+FORM_ENDPOINT=""
 NAV=[("index.html","Home"),("services.html","Services"),("pricing.html","Pricing"),("about.html","About"),("audit.html","Free audit")]
 LD={"@context":"https://schema.org","@type":["Organization","ProfessionalService"],"name":"Practara AI","url":D+"/","logo":D+"/favicon.svg","description":"Website rebuilds plus AI search and SEO visibility, brand, and analytics for ambulatory surgery centers and physician practices.","founder":{"@type":"Person","name":"Brady Rodriguez"},"areaServed":{"@type":"Country","name":"United States"},"email":EMAIL,"knowsAbout":["Medical practice websites","Ambulatory surgery center marketing","AI search visibility","Healthcare SEO","HIPAA-safe web analytics"]}
 def page(fn,title,desc,body,extra=""):
@@ -119,6 +121,47 @@ f'''<section class="hero hero-sm"><div class="wrap"><h1>About Practara AI</h1><p
 </section>
 {cta}''')
 
+AUDIT_FORM=("""<form id="audit-form" novalidate>
+<label for="org">Practice name</label><input id="org" name="practice" autocomplete="organization" maxlength="500" required>
+<label for="name">Contact name</label><input id="name" name="contact" autocomplete="name" maxlength="500" required>
+<label for="email">Work email</label><input id="email" name="email" type="email" autocomplete="email" maxlength="500" required>
+<label for="phone">Phone (optional)</label><input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="500">
+<label for="site">Website URL</label><input id="site" name="website" type="url" inputmode="url" placeholder="https://" maxlength="500" required>
+<label for="type">Practice type</label><select id="type" name="type"><option value="">Choose one</option><option>Ambulatory surgery center</option><option>Physician practice</option><option>Multi-specialty group</option><option>Other</option></select>
+<label for="msg">Message (optional)</label><textarea id="msg" name="message" rows="3" maxlength="500" aria-describedby="msg-help"></textarea>
+<p id="msg-help" class="small">Please do not include patient information.</p>
+<div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"><label for="hp">Leave this empty</label><input id="hp" name="company_website" tabindex="-1" autocomplete="off"></div>
+<input type="hidden" id="ref" name="ref">
+<button class="btn" type="submit">Send audit request</button>
+<p id="form-error" class="small" role="alert" hidden></p>
+</form>
+<div id="form-thanks" role="status" hidden><h3>Thank you.</h3><p>We received your request and will email you within 2 business days.</p></div>
+<p class="small">Prefer to write directly? Email <a href="mailto:EMAIL_X?subject=Free%20website%20audit%20request">EMAIL_X</a>.</p>
+<script>
+(function(){
+var ENDPOINT=ENDPOINT_X, EMAIL="EMAIL_X";
+var f=document.getElementById("audit-form"), q=new URLSearchParams(location.search);
+if(q.get("url"))f.website.value=q.get("url").slice(0,500);
+if(q.get("ref"))f.ref.value=q.get("ref").slice(0,500);
+function mailto(){
+ var b="";["practice","contact","email","phone","website","type","message","ref"].forEach(function(k){if(f[k].value)b+=k+": "+f[k].value+"\\n";});
+ location.href="mailto:"+EMAIL+"?subject="+encodeURIComponent("Free website audit request")+"&body="+encodeURIComponent(b);
+}
+function thanks(){f.hidden=true;document.getElementById("form-thanks").hidden=false;}
+f.addEventListener("submit",function(e){
+ e.preventDefault();
+ var err=document.getElementById("form-error");
+ if(!f.checkValidity()){err.textContent="Please fill in the required fields, including a valid email and website URL.";err.hidden=false;f.reportValidity();return;}
+ err.hidden=true;
+ if(f.company_website.value){thanks();return;}
+ if(!ENDPOINT){mailto();thanks();return;}
+ var btn=f.querySelector("button");btn.disabled=true;btn.textContent="Sending...";
+ fetch(ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:new URLSearchParams(new FormData(f)).toString()})
+ .then(thanks).catch(function(){mailto();thanks();});
+});
+})();
+</script>""".replace("EMAIL_X",EMAIL).replace("ENDPOINT_X",json.dumps(FORM_ENDPOINT)))
+
 page("audit.html","Free website audit | Practara AI","Request a free Website and AI Visibility Audit for your surgery center or physician practice.",
 f'''<section class="hero hero-sm"><div class="wrap"><h1>Free website audit</h1><p class="lead">Find out what patients, and AI search, can and cannot see about your practice.</p></div></section>
 <section class="wrap section split">
@@ -133,18 +176,7 @@ f'''<section class="hero hero-sm"><div class="wrap"><h1>Free website audit</h1><
 <div class="card">
 <h2>Request your audit</h2>
 <p class="notice" role="note"><strong>Please do not include patient information.</strong></p>
-<!-- PLACEHOLDER: no backend. Replace action with a real form endpoint before launch, or keep mailto. -->
-<form action="mailto:{EMAIL}?subject=Free%20website%20audit%20request" method="post" enctype="text/plain">
-<label for="name">Your name</label><input id="name" name="name" autocomplete="name" required>
-<label for="org">Practice or surgery center</label><input id="org" name="practice" autocomplete="organization" required>
-<label for="site">Website address</label><input id="site" name="website" type="url" inputmode="url" placeholder="https://" required>
-<label for="email">Work email</label><input id="email" name="email" type="email" autocomplete="email" required>
-<label for="phone">Phone (optional)</label><input id="phone" name="phone" type="tel" autocomplete="tel">
-<label for="msg">Anything we should know? (optional)</label><textarea id="msg" name="message" rows="3" aria-describedby="msg-help"></textarea>
-<p id="msg-help" class="small">General questions only. Please do not include patient information.</p>
-<button class="btn" type="submit">Send audit request</button>
-</form>
-<p class="small">This form opens your email app. Prefer to write directly? Email <a href="mailto:{EMAIL}?subject=Free%20website%20audit%20request">{EMAIL}</a>.</p>
+'''+AUDIT_FORM+f'''
 </div></section>''')
 
 page("privacy.html","Privacy | Practara AI","How Practara AI handles information on this website.",
@@ -152,7 +184,7 @@ f'''<section class="hero hero-sm"><div class="wrap"><h1>Privacy</h1><p class="le
 <section class="wrap section prose">
 <h2>Cookies and tracking</h2><p>This website does not use cookies, analytics, or trackers.</p>
 <h2>Hosting</h2><p>This site is hosted on GitHub Pages. GitHub may keep standard server logs, such as IP addresses, under the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub General Privacy Statement</a>.</p>
-<h2>Audit requests</h2><p>The audit request form only opens your email app. This site does not store anything you type. If you choose to send the email, it goes to <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
+<h2>Audit requests</h2><p>Audit requests you submit, including your practice and contact details and your website address, are saved to Practara AI's Google Sheet. Please do not include patient information. You can also email us at <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
 <h2>Patient information</h2><p>Please do not send patient information.</p>
 <h2>Questions</h2><p>Contact <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
 </section>''')

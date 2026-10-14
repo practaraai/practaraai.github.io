@@ -38,18 +38,46 @@
 <div class="card">
 <h2>Request your audit</h2>
 <p class="notice" role="note"><strong>Please do not include patient information.</strong></p>
-<!-- PLACEHOLDER: no backend. Replace action with a real form endpoint before launch, or keep mailto. -->
-<form action="mailto:practara.ai@gmail.com?subject=Free%20website%20audit%20request" method="post" enctype="text/plain">
-<label for="name">Your name</label><input id="name" name="name" autocomplete="name" required>
-<label for="org">Practice or surgery center</label><input id="org" name="practice" autocomplete="organization" required>
-<label for="site">Website address</label><input id="site" name="website" type="url" inputmode="url" placeholder="https://" required>
-<label for="email">Work email</label><input id="email" name="email" type="email" autocomplete="email" required>
-<label for="phone">Phone (optional)</label><input id="phone" name="phone" type="tel" autocomplete="tel">
-<label for="msg">Anything we should know? (optional)</label><textarea id="msg" name="message" rows="3" aria-describedby="msg-help"></textarea>
-<p id="msg-help" class="small">General questions only. Please do not include patient information.</p>
+<form id="audit-form" novalidate>
+<label for="org">Practice name</label><input id="org" name="practice" autocomplete="organization" maxlength="500" required>
+<label for="name">Contact name</label><input id="name" name="contact" autocomplete="name" maxlength="500" required>
+<label for="email">Work email</label><input id="email" name="email" type="email" autocomplete="email" maxlength="500" required>
+<label for="phone">Phone (optional)</label><input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="500">
+<label for="site">Website URL</label><input id="site" name="website" type="url" inputmode="url" placeholder="https://" maxlength="500" required>
+<label for="type">Practice type</label><select id="type" name="type"><option value="">Choose one</option><option>Ambulatory surgery center</option><option>Physician practice</option><option>Multi-specialty group</option><option>Other</option></select>
+<label for="msg">Message (optional)</label><textarea id="msg" name="message" rows="3" maxlength="500" aria-describedby="msg-help"></textarea>
+<p id="msg-help" class="small">Please do not include patient information.</p>
+<div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"><label for="hp">Leave this empty</label><input id="hp" name="company_website" tabindex="-1" autocomplete="off"></div>
+<input type="hidden" id="ref" name="ref">
 <button class="btn" type="submit">Send audit request</button>
+<p id="form-error" class="small" role="alert" hidden></p>
 </form>
-<p class="small">This form opens your email app. Prefer to write directly? Email <a href="mailto:practara.ai@gmail.com?subject=Free%20website%20audit%20request">practara.ai@gmail.com</a>.</p>
+<div id="form-thanks" role="status" hidden><h3>Thank you.</h3><p>We received your request and will email you within 2 business days.</p></div>
+<p class="small">Prefer to write directly? Email <a href="mailto:practara.ai@gmail.com?subject=Free%20website%20audit%20request">practara.ai@gmail.com</a>.</p>
+<script>
+(function(){
+var ENDPOINT="", EMAIL="practara.ai@gmail.com";
+var f=document.getElementById("audit-form"), q=new URLSearchParams(location.search);
+if(q.get("url"))f.website.value=q.get("url").slice(0,500);
+if(q.get("ref"))f.ref.value=q.get("ref").slice(0,500);
+function mailto(){
+ var b="";["practice","contact","email","phone","website","type","message","ref"].forEach(function(k){if(f[k].value)b+=k+": "+f[k].value+"\n";});
+ location.href="mailto:"+EMAIL+"?subject="+encodeURIComponent("Free website audit request")+"&body="+encodeURIComponent(b);
+}
+function thanks(){f.hidden=true;document.getElementById("form-thanks").hidden=false;}
+f.addEventListener("submit",function(e){
+ e.preventDefault();
+ var err=document.getElementById("form-error");
+ if(!f.checkValidity()){err.textContent="Please fill in the required fields, including a valid email and website URL.";err.hidden=false;f.reportValidity();return;}
+ err.hidden=true;
+ if(f.company_website.value){thanks();return;}
+ if(!ENDPOINT){mailto();thanks();return;}
+ var btn=f.querySelector("button");btn.disabled=true;btn.textContent="Sending...";
+ fetch(ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:new URLSearchParams(new FormData(f)).toString()})
+ .then(thanks).catch(function(){mailto();thanks();});
+});
+})();
+</script>
 </div></section>
 </main>
 <footer class="site-footer"><div class="wrap foot">
