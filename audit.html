@@ -25,8 +25,10 @@
 <nav aria-label="Main"><a href="index.html">Home</a><a href="services.html">Services</a><a href="pricing.html">Pricing</a><a href="about.html">About</a><a href="audit.html" aria-current="page" class="btn btn-sm">Free audit</a></nav>
 </div></header>
 <main id="main">
-<section class="hero hero-sm"><div class="wrap"><h1>Free website audit</h1><p class="lead">Find out what patients, and AI search, can and cannot see about your practice.</p></div></section>
-<section class="wrap section split">
+<section class="hero hero-sm"><div class="wrap"><h1>Free website audit</h1><p class="lead">Find out what patients, and AI search, can and cannot see about your practice. Start with an instant score.</p>
+<form id="scan-form" class="scan-box" novalidate role="search" aria-label="Free website score"><label for="scan-url">Enter your practice website for a free instant score</label><input id="scan-url" name="url" type="text" inputmode="url" autocomplete="url" placeholder="yourpractice.com" maxlength="300" required><button class="btn" type="submit">Get my free score</button><p id="scan-msg" class="small" role="alert" hidden></p></form><p class="small">Free and instant. We only check your public website. Please do not include patient information.</p></div></section>
+<section class="wrap scan-wrap" aria-live="polite"><div id="scan-result"></div></section>
+<section class="wrap section split" id="request">
 <div><h2>What we check</h2><ul class="checks">
 <li><strong>Modern website:</strong> mobile layout, speed, HTTPS, broken links, stale content, page titles and descriptions</li>
 <li><strong>AI visibility:</strong> AI crawler access, llms.txt, medical schema, FAQ content</li>
@@ -36,7 +38,7 @@
 <li><strong>Compliance risk flags:</strong> ad pixels on patient pages, legacy tracking, forms that may collect patient information, accessibility basics (informational, not legal advice)</li>
 </ul></div>
 <div class="card">
-<h2>Request your audit</h2>
+<h2>Or request your audit directly</h2>
 <p class="notice" role="note"><strong>Please do not include patient information.</strong></p>
 <form id="audit-form" novalidate>
 <label for="org">Practice name</label><input id="org" name="practice" autocomplete="organization" maxlength="500" required>
@@ -56,7 +58,7 @@
 <p class="small">Prefer to write directly? Email <a href="mailto:practara.ai@gmail.com?subject=Free%20website%20audit%20request">practara.ai@gmail.com</a>.</p>
 <script>
 (function(){
-var ENDPOINT="https://script.google.com/macros/s/AKfycbwif62DzaA43EAkNZj7xxzx6zh8vbRvYJjdaowolpefyhyYHj8AFfcZz5ZK1yN7qokyPg/exec", EMAIL="practara.ai@gmail.com";
+var ENDPOINT="https://script.google.com/macros/s/AKfycbyors1TR2mlBP-3cODe-wrb-KfAj4UwGcuQu2Fs3e7EpnobTQHd3bq_HpzmT4oYQN9-/exec", EMAIL="practara.ai@gmail.com";
 var f=document.getElementById("audit-form"), q=new URLSearchParams(location.search);
 if(q.get("url"))f.website.value=q.get("url").slice(0,500);
 if(q.get("ref"))f.ref.value=q.get("ref").slice(0,500);
@@ -78,7 +80,7 @@ f.addEventListener("submit",function(e){
 });
 })();
 </script>
-</div></section>
+</div></section><script>window.PRACTARA={"endpoint": "https://script.google.com/macros/s/AKfycbyors1TR2mlBP-3cODe-wrb-KfAj4UwGcuQu2Fs3e7EpnobTQHd3bq_HpzmT4oYQN9-/exec", "email": "practara.ai@gmail.com"};</script><script src="scorecard.js" defer></script>
 </main>
 <footer class="site-footer"><div class="wrap foot">
 <p><strong>Practara AI</strong> | Help patients and AI understand your practice.<br>Websites and AI search visibility for ambulatory surgery centers and physician practices. Serving clients across the United States.</p>

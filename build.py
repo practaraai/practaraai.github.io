@@ -3,7 +3,7 @@ import json, os
 D="https://practaraai.com"
 EMAIL="practara.ai@gmail.com"
 # Google Apps Script web app URL (ends in /exec). Empty = form falls back to email.
-FORM_ENDPOINT="https://script.google.com/macros/s/AKfycbwif62DzaA43EAkNZj7xxzx6zh8vbRvYJjdaowolpefyhyYHj8AFfcZz5ZK1yN7qokyPg/exec"
+FORM_ENDPOINT="https://script.google.com/macros/s/AKfycbyors1TR2mlBP-3cODe-wrb-KfAj4UwGcuQu2Fs3e7EpnobTQHd3bq_HpzmT4oYQN9-/exec"
 NAV=[("index.html","Home"),("services.html","Services"),("pricing.html","Pricing"),("about.html","About"),("audit.html","Free audit")]
 LD={"@context":"https://schema.org","@type":["Organization","ProfessionalService"],"name":"Practara AI","url":D+"/","logo":D+"/favicon.svg","description":"Website rebuilds plus AI search and SEO visibility, brand, and analytics for ambulatory surgery centers and physician practices.","areaServed":{"@type":"Country","name":"United States"},"email":EMAIL,"knowsAbout":["Medical practice websites","Ambulatory surgery center marketing","AI search visibility","Healthcare SEO","HIPAA-safe web analytics"]}
 def page(fn,title,desc,body,extra=""):
@@ -48,6 +48,9 @@ def page(fn,title,desc,body,extra=""):
 '''
     assert "\u2014" not in html and "\u2013" not in html
     open(fn,"w").write(html)
+SCAN_BOX='<form id="scan-form" class="scan-box" novalidate role="search" aria-label="Free website score"><label for="scan-url">Enter your practice website for a free instant score</label><input id="scan-url" name="url" type="text" inputmode="url" autocomplete="url" placeholder="yourpractice.com" maxlength="300" required><button class="btn" type="submit">Get my free score</button><p id="scan-msg" class="small" role="alert" hidden></p></form>'
+SCAN_OUT='<section class="wrap scan-wrap" aria-live="polite"><div id="scan-result"></div></section>'
+SCAN_JS=f'<script>window.PRACTARA={json.dumps({"endpoint":FORM_ENDPOINT,"email":EMAIL})};</script><script src="scorecard.js" defer></script>'
 cta='<section class="cta"><div class="wrap"><h2>See what your website says about your care.</h2><p>Request a free website audit. No signup, no patient information.</p><a class="btn btn-light" href="audit.html">Request your free audit</a></div></section>'
 ld=f'<script type="application/ld+json">{json.dumps(LD)}</script>\n'
 
@@ -57,9 +60,10 @@ f'''<section class="hero"><div class="wrap">
 <p class="eyebrow">Help patients and AI understand your practice.</p>
 <h1>Your care has advanced. Your website hasn't.</h1>
 <p class="lead">Your procedures, technology, and physician training have moved forward. Practara AI rebuilds websites for surgery centers and physician practices so patients, referring physicians, Google, and AI assistants can see that clearly.</p>
-<div class="actions"><a class="btn" href="audit.html">Get your free website audit</a><a class="btn btn-ghost" href="pricing.html">See pricing</a></div>
-<p class="small">We only review your public website. Please do not include patient information.</p>
+{SCAN_BOX}
+<p class="small">Free, instant, and no signup. We only check your public website. Please do not include patient information. <a href="pricing.html">See pricing</a></p>
 </div></section>
+{SCAN_OUT}
 <section class="wrap section"><h2>Patients judge your care by your website before they meet you</h2>
 <p class="intro">When a website looks dated, patients and referring physicians may assume the care is dated too. Your care may be far more current than your site shows. Patients cannot see your operating rooms, your equipment, or your physicians' training. They see your homepage.</p>
 <div class="grid3">
@@ -72,9 +76,9 @@ f'''<section class="hero"><div class="wrap">
 <ul class="checks"><li>No patient health information in standard web forms or analytics</li><li>No ad pixels or session replay on clinical pages</li><li>Content your clinical team reviews and approves before anything goes live</li><li>Accessibility designed to target WCAG 2.2 AA</li><li>No guarantees of rankings, AI answers, or patient volume. We fix what makes your site harder to understand and report on what changes.</li></ul>
 </div></section>
 <section class="wrap section"><h2>How it works</h2>
-<ol class="steps"><li><strong>Request your free audit.</strong> Send us your website address.</li><li><strong>Review pricing.</strong> One plan: $2,500 per quarter, 12-month contract, $0 down.</li><li><strong>Book a free 15-minute call.</strong> We walk through your results and what we would fix first. No pressure.</li><li><strong>Get a written proposal.</strong> A clear scope, price, and timeline.</li></ol>
+<ol class="steps"><li><strong>Get your instant score.</strong> Enter your website above and see what is holding it back.</li><li><strong>Request your free deeper analysis.</strong> We review AI search visibility, competitors, and your insurance patient mix.</li><li><strong>Review pricing.</strong> One plan: $2,500 per quarter, 12-month contract, $0 down.</li><li><strong>Book a free 15-minute call.</strong> We walk through your results and what we would fix first. No pressure.</li><li><strong>Get a written proposal.</strong> A clear scope, price, and timeline.</li></ol>
 </section>
-{cta}''',ld)
+{cta}{SCAN_JS}''',ld)
 
 page("services.html","Services | Practara AI","Website rebuilds, AI search visibility, SEO, brand, and privacy-safe analytics for ambulatory surgery centers and physician practices.",
 f'''<section class="hero hero-sm"><div class="wrap"><h1>Services</h1><p class="lead">A modern practice website plus AI visibility, built for surgery centers and independent physician practices.</p></div></section>
@@ -163,8 +167,10 @@ f.addEventListener("submit",function(e){
 </script>""".replace("EMAIL_X",EMAIL).replace("ENDPOINT_X",json.dumps(FORM_ENDPOINT)))
 
 page("audit.html","Free website audit | Practara AI","Request a free Website and AI Visibility Audit for your surgery center or physician practice.",
-f'''<section class="hero hero-sm"><div class="wrap"><h1>Free website audit</h1><p class="lead">Find out what patients, and AI search, can and cannot see about your practice.</p></div></section>
-<section class="wrap section split">
+f'''<section class="hero hero-sm"><div class="wrap"><h1>Free website audit</h1><p class="lead">Find out what patients, and AI search, can and cannot see about your practice. Start with an instant score.</p>
+'''+SCAN_BOX+'''<p class="small">Free and instant. We only check your public website. Please do not include patient information.</p></div></section>
+'''+SCAN_OUT+f'''
+<section class="wrap section split" id="request">
 <div><h2>What we check</h2><ul class="checks">
 <li><strong>Modern website:</strong> mobile layout, speed, HTTPS, broken links, stale content, page titles and descriptions</li>
 <li><strong>AI visibility:</strong> AI crawler access, llms.txt, medical schema, FAQ content</li>
@@ -174,17 +180,17 @@ f'''<section class="hero hero-sm"><div class="wrap"><h1>Free website audit</h1><
 <li><strong>Compliance risk flags:</strong> ad pixels on patient pages, legacy tracking, forms that may collect patient information, accessibility basics (informational, not legal advice)</li>
 </ul></div>
 <div class="card">
-<h2>Request your audit</h2>
+<h2>Or request your audit directly</h2>
 <p class="notice" role="note"><strong>Please do not include patient information.</strong></p>
 '''+AUDIT_FORM+f'''
-</div></section>''')
+</div></section>'''+SCAN_JS)
 
 page("privacy.html","Privacy | Practara AI","How Practara AI handles information on this website.",
 f'''<section class="hero hero-sm"><div class="wrap"><h1>Privacy</h1><p class="lead">Last updated October 14, 2026.</p></div></section>
 <section class="wrap section prose">
 <h2>Cookies and tracking</h2><p>This website does not use cookies, analytics, or trackers.</p>
 <h2>Hosting</h2><p>This site is hosted on GitHub Pages. GitHub may keep standard server logs, such as IP addresses, under the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub General Privacy Statement</a>.</p>
-<h2>Audit requests</h2><p>Audit requests you submit, including your practice and contact details and your website address, are saved to Practara AI's Google Sheet. Please do not include patient information. You can also email us at <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
+<h2>Audit requests</h2><p>Audit requests you submit, including your practice and contact details, preferred call time, state, and your website address and score, are saved to Practara AI's Google Sheet. When you use the instant score, the website address you enter and its score are also saved there, and our server fetches that website's public homepage, robots.txt, and sitemap. The address may also be sent to Google PageSpeed Insights to measure mobile speed. Please do not include patient information. You can also email us at <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
 <h2>Patient information</h2><p>Please do not send patient information.</p>
 <h2>Questions</h2><p>Contact <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
 </section>''')

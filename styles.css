@@ -47,3 +47,31 @@ input,textarea,select{background:#fff;width:100%;font:inherit;padding:11px 12px;
 form .btn{margin-top:16px;width:100%}
 .site-footer{background:var(--ink);color:#e9ebf0;padding:32px 0;font-size:.95rem}.site-footer a{color:#fff}
 .foot p{margin:0 0 10px}.site-footer .small{color:#b9bdc7}
+/* Instant scorecard */
+.scan-box{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 8px;max-width:640px}
+.scan-box label{flex-basis:100%;font-weight:600;margin:0}
+.scan-box input{flex:1 1 260px;font-size:1.05rem}
+.scan-box .btn{flex:0 0 auto;margin:0;width:auto}
+#scan-msg{color:#b4472e;margin:0}
+.scan-wrap{padding-bottom:8px}
+.scanning{display:flex;gap:12px;align-items:center;padding:20px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.spin{width:22px;height:22px;border:3px solid var(--line);border-top-color:var(--mint);border-radius:50%;animation:sp 1s linear infinite;flex:0 0 auto}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.spin{animation:none}}
+.scorecard{background:#fff;border:1px solid var(--line);border-top:6px solid var(--indigo);border-radius:16px;padding:24px;margin:8px 0 24px;outline:0}
+.sc-head{display:flex;flex-wrap:wrap;gap:22px;align-items:center;margin-bottom:12px}
+.sc-ring{--p:0;--c:#3B3F99;width:128px;height:128px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--c) calc(var(--p)*1%),var(--line) 0)}
+.sc-ring span{width:100px;height:100px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--ink)}
+.sc-ring b{font:700 2.2rem/1 var(--head);color:var(--ink)}.sc-ring small{color:var(--muted)}
+.issues{padding-left:1.3em}.issues li{margin-bottom:10px}
+.issues li::marker{color:var(--indigo);font-weight:700}
+.cks{list-style:none;padding:0;margin:12px 0 0}
+.ck{display:grid;grid-template-columns:18px 1fr auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.ck .dot{width:12px;height:12px;border-radius:50%}
+.ck.pass .dot{background:var(--mint)}.ck.part .dot{background:#e0a100}.ck.fail .dot{background:#b4472e}
+.ck-d{color:var(--muted);font-size:.9rem}
+.sr{position:absolute;left:-9999px}
+.tease{background:var(--soft);border-left:4px solid var(--mint);border-radius:10px;padding:16px 18px;margin-top:18px}
+.lead-card{border:2px solid var(--mint);margin-bottom:24px}
+.lead-card .grid2{gap:0 18px}
+.scorecard,#lead,#request{scroll-margin-top:84px}
