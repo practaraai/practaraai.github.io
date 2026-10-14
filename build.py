@@ -150,12 +150,11 @@ f'''<section class="hero hero-sm"><div class="wrap"><h1>Free website audit</h1><
 page("privacy.html","Privacy | Practara AI","How Practara AI handles information on this website.",
 f'''<section class="hero hero-sm"><div class="wrap"><h1>Privacy</h1><p class="lead">Last updated October 14, 2026.</p></div></section>
 <section class="wrap section prose">
-<p><strong>Draft for review by counsel before launch.</strong></p>
-<h2>What this site collects</h2><p>This website has no analytics, ad pixels, cookies, or third-party trackers. It does not collect information on its own.</p>
-<h2>Audit requests</h2><p>When you request an audit, your email app sends us the details you choose to include, such as your name, practice, website, email, and phone. We use them only to prepare your audit and contact you about it. We do not sell this information.</p>
-<h2>Patient information</h2><p>Please do not send patient information through this site or by email. Practara AI does not need patient information to audit a website. If a client engagement ever requires access to systems that could hold protected health information, we sign a Business Associate Agreement first.</p>
-<h2>Hosting</h2><p>This site is hosted on GitHub Pages. GitHub may process technical data such as IP addresses to deliver and secure the site, under its own privacy statement.</p>
-<h2>Contact</h2><p>Questions about privacy: <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
+<h2>Cookies and tracking</h2><p>This website does not use cookies, analytics, or trackers.</p>
+<h2>Hosting</h2><p>This site is hosted on GitHub Pages. GitHub may keep standard server logs, such as IP addresses, under the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub General Privacy Statement</a>.</p>
+<h2>Audit requests</h2><p>The audit request form only opens your email app. This site does not store anything you type. If you choose to send the email, it goes to <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
+<h2>Patient information</h2><p>Please do not send patient information.</p>
+<h2>Questions</h2><p>Contact <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
 </section>''')
 
 page("404.html","Page not found | Practara AI","This page could not be found.",
