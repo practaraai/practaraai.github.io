@@ -51,7 +51,23 @@ def page(fn,title,desc,body,extra=""):
 SCAN_BOX='<form id="scan-form" class="scan-box" novalidate role="search" aria-label="Free website score"><label for="scan-url">Enter your practice website for a free instant score</label><input id="scan-url" name="url" type="text" inputmode="url" autocomplete="url" placeholder="yourpractice.com" maxlength="300" required><button class="btn" type="submit">Get my free score</button><p id="scan-msg" class="small" role="alert" hidden></p></form>'
 SCAN_OUT='<section class="wrap scan-wrap" aria-live="polite"><div id="scan-result"></div></section>'
 SCAN_JS=f'<script>window.PRACTARA={json.dumps({"endpoint":FORM_ENDPOINT,"email":EMAIL})};</script><script src="scorecard.js" defer></script>'
-cta='<section class="cta"><div class="wrap"><h2>See what your website says about your care.</h2><p>Request a free website audit. No signup, no patient information.</p><a class="btn btn-light" href="audit.html">Request your free audit</a> <a class="btn btn-light" href="https://calendly.com/practara-ai/30min" target="_blank" rel="noopener">Book a 30-minute call</a></div></section>'
+cta='<section class="cta"><div class="wrap"><h2>See what your website says about your care.</h2><p>Request a free website audit. No signup, no patient information.</p><div class="actions cta-actions"><a class="btn btn-light" href="audit.html">Request your free audit</a><a class="btn btn-light" href="https://calendly.com/practara-ai/30min" target="_blank" rel="noopener">Book a 30-minute call</a></div></div></section>'
+PLANS='<section class="plans" id="plans" aria-labelledby="plans-h"><p class="eyebrow">Plans after your audit</p><h2 id="plans-h">Your website plus Practara AI Front Desk</h2>'+\
+'<p class="intro">Your website brings patients in. Front Desk replies to new patient inquiries from your web forms, email, and missed calls, and routes each one to your team and the right appointment path. Front Desk is sold only with the website plan, never on its own.</p>'+\
+'<div class="grid2 pricing">'+\
+'<article class="card price featured"><p class="tag">Founding Client: first 5 practices</p><h3>Founding Practice Plan</h3><p class="amount">$3,250 <span>per quarter</span></p><p>12-month contract. $0 down. Rate locked for 12 months.</p>'+\
+'<ul class="plan-lines"><li><span>Website and AI Visibility plan</span><span>$1,000 per quarter</span></li><li><span>Practara AI Front Desk ($750 per month)</span><span>$2,250 per quarter</span></li></ul><p class="small fd-start"><strong>Front Desk installs begin after healthcare attorney review. Front Desk fees start at install.</strong></p>'+\
+'<p class="small">In exchange for a case study, logo use, a testimonial, and beta feedback, the same terms as our Founding Client website offer. Any testimonial we publish will note that the practice received founding client pricing.</p></article>'+\
+'<article class="card price"><p class="tag tag-mint">Standard</p><h3>Practice Growth Plan</h3><p class="amount">$7,000 <span>per quarter</span></p><p>12-month contract. $0 down.</p>'+\
+'<ul class="plan-lines"><li><span>Website and AI Visibility plan</span><span>$2,500 per quarter</span></li><li><span>Practara AI Front Desk ($1,500 per month)</span><span>$4,500 per quarter</span></li></ul><p class="small fd-start"><strong>Front Desk installs begin after healthcare attorney review. Front Desk fees start at install.</strong></p></article>'+\
+'</div>'+\
+'<p class="texts"><strong>Texts:</strong> Both plans include up to 8,000 text message segments per month per location. A long text can count as more than one segment. Segments over the cap are billed at Practara AI&#39;s cost, with no markup.</p>'+\
+'<div class="card fd-card"><h3>Practara AI Front Desk <span class="pending">Pending attorney review</span></h3>'+\
+'<p class="notice" role="note"><strong>Pending attorney review.</strong> Front Desk requires healthcare attorney review before the first install. Installs begin only after that review is complete.</p>'+\
+'<ul class="checks"><li>Quick replies to web forms, emails, and missed calls, with a short summary handed to your staff</li><li>A booking assistant that offers open times or sends a booking request to your staff, based on what your scheduler allows</li><li>An insurance prescreen: patients pick their plan from your list and are routed to booking, your self-pay process, or your billing team. Your staff make every final decision.</li><li>Appointment reminders and no-show follow-up, without double texting if your system already sends reminders</li><li>The same review request to every eligible patient after a visit</li><li>Recall reminders to patients who are overdue for care, sent only to patients who have agreed to texts from your practice, from a list your practice approves</li><li>A monthly report with counts only, no patient names</li></ul>'+\
+'<p><strong>Built for medical practices.</strong> Front Desk asks only for contact details, appointment preferences, and insurance plan, never medical history. It always says it is an automated assistant, texts only with consent and follows your practice&#39;s consent and opt-out rules, including STOP requests, and hands anything clinical or urgent to your team. Front Desk is installed only after every vendor that handles patient messages has signed a Business Associate Agreement, and we sign a BAA with your practice before install.</p></div>'+\
+'<div class="actions"><a class="btn" href="https://calendly.com/practara-ai/30min" target="_blank" rel="noopener">Book a 30-minute call</a><a class="btn btn-ghost" href="mailto:'+EMAIL+'?subject=Practara%20AI%20Front%20Desk">Email '+EMAIL+'</a></div>'+\
+'<p class="small">No results are guaranteed. We measure your starting point in the first 30 days and report changes monthly. Prices are in US dollars and exclude taxes. Final scope is confirmed in a written service agreement and Business Associate Agreement.</p></section>'
 ld=f'<script type="application/ld+json">{json.dumps(LD)}</script>\n'
 
 page("index.html","Practara AI | Websites and AI visibility for surgery centers and physician practices",
@@ -78,7 +94,7 @@ f'''<section class="hero"><div class="wrap">
 <section class="wrap section"><h2>How it works</h2>
 <ol class="steps"><li><strong>Get your instant score.</strong> Enter your website above and see what is holding it back.</li><li><strong>Request your free deeper analysis.</strong> We review AI search visibility, competitors, and your insurance patient mix.</li><li><strong>Review pricing.</strong> One plan: $2,500 per quarter, 12-month contract, $0 down.</li><li><strong>Book a free 30-minute call.</strong> We walk through your results and what we would fix first. No pressure.</li><li><strong>Get a written proposal.</strong> A clear scope, price, and timeline.</li></ol>
 </section>
-{cta}{SCAN_JS}''',ld)
+{cta}<template id="fd-plans-tpl">{PLANS}</template>{SCAN_JS}''',ld)
 
 page("services.html","Services | Practara AI","Website rebuilds, AI search visibility, SEO, brand, and privacy-safe analytics for ambulatory surgery centers and physician practices.",
 f'''<section class="hero hero-sm"><div class="wrap"><h1>Services</h1><p class="lead">A modern practice website plus AI visibility, built for surgery centers and independent physician practices.</p></div></section>
@@ -109,7 +125,7 @@ f'''<section class="hero hero-sm"><div class="wrap"><h1>One plan. Simple, upfron
 <section class="band"><div class="wrap section"><h2>Questions</h2>
 <details><summary>Is there a setup fee?</summary><p>No. The plan is $0 down and billed quarterly.</p></details>
 <details><summary>Can you guarantee we will rank first on Google or appear in ChatGPT?</summary><p>No. No one can honestly guarantee search rankings, AI answers, or patient volume. We fix what makes your site harder for people, search engines, and AI tools to understand, and we report on what changes.</p></details>
-<details><summary>Do you offer AI tools for patient intake or follow-up?</summary><p>No. We build and maintain your website and its search and AI visibility.</p></details>
+<details><summary>Do you offer AI tools for patient intake or follow-up?</summary><p>For scheduling and follow-up, yes, never for clinical intake. Practara AI Front Desk is an add-on sold only with the website plan: $3,250 per quarter in total for Founding Clients, or $7,000 per quarter in total for other practices. Front Desk is pending healthcare attorney review, and installs begin only after that review is complete. Front Desk fees start at install. <a href="audit.html#plans">See both plans</a>.</p></details>
 <details><summary>We already have a web vendor. Is this still useful?</summary><p>Yes. Many teams share their audit results with their current vendor as a to-do list.</p></details>
 </div></section>
 {cta}''')
@@ -185,7 +201,8 @@ f'''<section class="hero hero-sm"><div class="wrap"><h1>Free website audit</h1><
 <h2>Or request your audit directly</h2>
 <p class="notice" role="note"><strong>Please do not include patient information.</strong></p>
 '''+AUDIT_FORM+f'''
-</div></section>'''+SCAN_JS)
+</div></section>
+<section class="band"><div class="wrap section">'''+PLANS+'''</div></section>'''+SCAN_JS)
 
 page("privacy.html","Privacy | Practara AI","How Practara AI handles information on this website.",
 f'''<section class="hero hero-sm"><div class="wrap"><h1>Privacy</h1><p class="lead">Last updated October 14, 2026.</p></div></section>

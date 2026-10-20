@@ -22,6 +22,9 @@ function render(r){
  '<div class="tease"><h3>What this quick scan cannot see</h3><ul class="checks"><li><strong>AI search visibility:</strong> whether ChatGPT, Google AI, and Perplexity name your practice for your key procedures</li><li><strong>Competitors:</strong> which local practices win the patients searching for what you do, and why</li><li><strong>Insurance and patient mix:</strong> whether your site attracts the patients and plans you serve best</li></ul></div>'+
  '</div>'+leadForm(r);
  wireLead();
+ var tpl=document.getElementById("fd-plans-tpl");
+ if(tpl&&tpl.content){out.appendChild(tpl.content.cloneNode(true));}
+ else if(document.getElementById("plans")){var p=document.createElement("p");p.className="plans-link";p.innerHTML='<a href="#plans">See our plans, including Practara AI Front Desk</a>';out.appendChild(p);}
  var sc=document.getElementById("scorecard");sc.focus({preventScroll:true});sc.scrollIntoView({behavior:"smooth",block:"start"});
 }
 function leadForm(r){
