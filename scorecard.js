@@ -24,7 +24,6 @@ function render(r){
  wireLead();
  var tpl=document.getElementById("fd-plans-tpl");
  if(tpl&&tpl.content){out.appendChild(tpl.content.cloneNode(true));}
- else if(document.getElementById("plans")){var p=document.createElement("p");p.className="plans-link";p.innerHTML='<a href="#plans">See our plans, including Practara AI Front Desk</a>';out.appendChild(p);}
  var sc=document.getElementById("scorecard");sc.focus({preventScroll:true});sc.scrollIntoView({behavior:"smooth",block:"start"});
 }
 function leadForm(r){
