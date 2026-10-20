@@ -11,7 +11,7 @@ function render(r){
  last=r;
  var rows=r.checks.map(function(c){var st=c.pass?"pass":c.partial?"part":"fail";
   return '<li class="ck '+st+'"><span class="dot" aria-hidden="true"></span><span class="ck-l">'+esc(c.label)+'</span><span class="ck-d">'+esc(c.detail)+'</span><span class="sr">'+(c.pass?"Passed":c.partial?"Needs work":"Missing")+'</span></li>';}).join("");
- var issues=r.issues.length?r.issues.map(function(i){return "<li>"+esc(i)+"</li>";}).join(""):"<li>Your basics look strong. The deeper audit shows where competitors and AI answers still beat you.</li>";
+ var issues=r.issues.length?r.issues.map(function(i){return "<li>"+esc(i)+"</li>";}).join(""):"<li>Your basics look strong. The deeper audit checks whether local competitors or AI answers rank ahead of you.</li>";
  var psi=(r.pagespeed!=null)?'<p class="small">Google mobile speed score: <strong>'+r.pagespeed+' of 100</strong></p>':"";
  out.innerHTML='<div class="scorecard" tabindex="-1" id="scorecard">'+
  '<div class="sc-head"><div class="sc-ring" style="--p:'+r.score+';--c:'+color(r.score)+'"><span><b>'+r.score+'</b><small>of 100</small></span></div>'+
@@ -22,8 +22,6 @@ function render(r){
  '<div class="tease"><h3>What this quick scan cannot see</h3><ul class="checks"><li><strong>AI search visibility:</strong> whether ChatGPT, Google AI, and Perplexity name your practice for your key procedures</li><li><strong>Competitors:</strong> which local practices win the patients searching for what you do, and why</li><li><strong>Insurance and patient mix:</strong> whether your site attracts the patients and plans you serve best</li></ul></div>'+
  '</div>'+leadForm(r);
  wireLead();
- var tpl=document.getElementById("fd-plans-tpl");
- if(tpl&&tpl.content){out.appendChild(tpl.content.cloneNode(true));}
  var sc=document.getElementById("scorecard");sc.focus({preventScroll:true});sc.scrollIntoView({behavior:"smooth",block:"start"});
 }
 function leadForm(r){
